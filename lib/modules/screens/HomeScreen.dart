@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex/modules/screens/FavoriteScreen.dart';
 import 'package:pokedex/modules/screens/SearchScreen.dart';
+
+import '../../bloc/pokemon_bloc.dart';
+import '../../bloc/pokemon_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -43,12 +47,44 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text("test")
-          ],
-        ),
+      body: BlocBuilder<PokemonBloc, PokemonState>(
+        builder: (context, state) {
+          if (state is PokemonLoadInProgress) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is PokemonPageLoadSuccess) {
+            return GridView.builder(
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemCount: state.pokemonListings.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)
+                    ),
+                    child: GridTile(
+                      child: Column(
+                        children: [
+                          Image.network(state.pokemonListings[index].imageUrl),
+                          Text(state.pokemonListings[index].name)
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          } else if (state is PokemonPageLoadFailed) {
+            return Center(
+              child: Text(state.error.toString()),
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.greenAccent,
