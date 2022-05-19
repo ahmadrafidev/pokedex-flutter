@@ -13,15 +13,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 75,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0)
+        ),
         title: Text(
             'Pokedex App',
           style: GoogleFonts.dmSans(
-            fontSize: 20,
+            fontSize: 28,
             fontWeight: FontWeight.bold
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.greenAccent,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       body: Center(
         child: Column(
@@ -31,7 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.greenAccent,
         onPressed: (){},
+        child: Icon(
+          Icons.search_outlined,
+        ),
       ),
     );
   }
