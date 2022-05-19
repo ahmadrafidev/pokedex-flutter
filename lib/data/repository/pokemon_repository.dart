@@ -5,7 +5,6 @@ import 'package:pokedex/data/repository/pokemon_info_response.dart';
 import 'package:pokedex/data/repository/pokemon_page_response.dart';
 import 'package:pokedex/data/repository/pokemon_spesies_info.dart';
 
-
 class PokemonRepository {
   final baseUrl = 'pokeapi.co';
   final client = http.Client();

@@ -12,20 +12,21 @@ class _FavoritScreenState extends State<FavoritScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.greenAccent,
       appBar: AppBar(
         title: Text(
           "Your Favorite Pokemon is here",
           style: GoogleFonts.dmSans(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: Colors.greenAccent
+              color: Colors.white
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.greenAccent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: (){
             Navigator.of(context).pop();
           },

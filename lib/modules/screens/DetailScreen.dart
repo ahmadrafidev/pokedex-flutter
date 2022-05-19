@@ -16,6 +16,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.greenAccent,
       appBar: AppBar(
         toolbarHeight: 75,
         shape: const RoundedRectangleBorder(
@@ -24,53 +25,90 @@ class _DetailScreenState extends State<DetailScreen> {
         title: Text(
           'Details Pokemon',
           style: GoogleFonts.dmSans(
-              fontSize: 28,
-              fontWeight: FontWeight.bold
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.white
           ),
         ),
         centerTitle: true,
+        elevation: 0,
         backgroundColor: Colors.greenAccent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        ),
       ),
-      backgroundColor: const Color(0xFFF2F2F2),
       body: BlocBuilder<PokemonDetailsCubit, PokemonDetails?>(
         builder: (context, details) {
           return details != null
               ? Center(
               child: Column(
                 children: [
-                  Expanded(
-                      flex: 1,
-                      child: Card(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Image.network(details.imageUrl!),
-                            Text(details.name!),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: details.types!
-                                  .map((type) => _pokemonTypeView(type))
-                                  .toList(),
-                            ),
-                            Text(
-                                'ID: ${details.id}  -  Weight: ${details.weight}  -  Height: ${details.height}')
-                          ],
-                        ),
-                      )),
-                  Expanded(
-                      flex: 2,
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              details.description!,
-                              textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.network(
+                              details.imageUrl!,
+                          ),
+                          SizedBox(height: 20,),
+                          Text(
+                              details.name!,
+                            style: GoogleFonts.dmSans(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ))
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: details.types!
+                                .map((type) => _pokemonTypeView(type))
+                                .toList(),
+                          ),
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                  'Weight: ${details.weight}',
+                                style: GoogleFonts.dmSans(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18
+                                ),
+                              ),
+                              Text(
+                                'Height: ${details.height}',
+                                style: GoogleFonts.dmSans(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18
+                              ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20,),
+                          Text(
+                            details.description!,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.dmSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          SizedBox(height: 20,),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ))
               : const Center(
