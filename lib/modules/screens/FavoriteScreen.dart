@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FavoritScreen extends StatefulWidget {
   const FavoritScreen({Key? key}) : super(key: key);
@@ -10,6 +11,35 @@ class FavoritScreen extends StatefulWidget {
 class _FavoritScreenState extends State<FavoritScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Your Favorite Pokemon is here",
+          style: GoogleFonts.dmSans(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.greenAccent
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Text("test")
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
