@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex/modules/screens/DetailScreen.dart';
-import 'package:pokedex/modules/screens/HomeScreen.dart';
+import 'package:pokedex/modules/screens/navigator.dart';
+import 'bloc/navigation.dart';
 import 'bloc/pokemon_bloc.dart';
+import 'bloc/pokemon_detail.dart';
 import 'bloc/pokemon_event.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pokemonDetailsCubit = PokemonDetailsCubit();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pokedex',
@@ -21,12 +23,12 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(
                 create: (context) =>
-                PokemonBloc()..add(PokemonPageRequest(page: 0)))
-          ], child: const HomeScreen()),
-      initialRoute: '/',
-      routes: {
-        '/detail_screen': (ctx) => const DetailScreen(),
-      },
+                PokemonBloc()..add(PokemonPageRequest(page: 0))),
+            BlocProvider(
+                create: (context) =>
+                    NavCubit(pokemonDetailsCubit: pokemonDetailsCubit)),
+            BlocProvider(create: (context) => pokemonDetailsCubit)
+          ], child: const AppNavigator()),
     );
   }
 }

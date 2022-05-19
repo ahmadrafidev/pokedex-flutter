@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:pokedex/modules/screens/FavoriteScreen.dart';
 import 'package:pokedex/modules/screens/SearchScreen.dart';
-
+import '../../bloc/navigation.dart';
 import '../../bloc/pokemon_bloc.dart';
 import '../../bloc/pokemon_state.dart';
 
@@ -59,18 +60,28 @@ class _HomeScreenState extends State<HomeScreen> {
               const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemCount: state.pokemonListings.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0)
-                    ),
-                    child: GridTile(
-                      child: Column(
-                        children: [
-                          Image.network(state.pokemonListings[index].imageUrl),
-                          Text(state.pokemonListings[index].name)
-                        ],
+                return GestureDetector(
+                  onTap: () => BlocProvider.of<NavCubit>(context)
+                      .showPokemonDetails(state.pokemonListings[index].id!),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0)
+                      ),
+                      child: GridTile(
+                        child: Column(
+                          children: [
+                            Image.network(state.pokemonListings[index].imageUrl),
+                            Text(
+                              state.pokemonListings[index].name!,
+                              style: GoogleFonts.dmSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

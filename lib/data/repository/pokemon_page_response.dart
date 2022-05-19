@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 
 class PokemonListing {
-  final int id;
-  final String name;
+  final int? id;
+  final String? name;
 
   String get imageUrl =>
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png';
